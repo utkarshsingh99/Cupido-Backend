@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Accept Invite Link</title>
+    </head>
+    <body>
+        <h3>Click on the link to confirm your presence at {{meeting.topic}}</h3>
+        <h4>At <span id="date"></span> on <span id="time"></span></h4>
+        <a href="/acceptinvite/{{meeting._id}}/{{to}}">I'll be there</a>
+    </body>
+    <script>
+        let info = {{meeting.timeStamp}}
+        let scheduledTime = new Date(info)
+        scheduledDate = scheduledTime.getDate().toString() + ' / ' + scheduledTime.getMonth().toString() + ' / ' + scheduledTime.getFullYear().toString()
+        scheduledTime = scheduledTime.getHours().toString() + ' : ' + scheduledTime.getMinutes().toString() + ' Hours'
+        document.getElementById("date").innerHTML = scheduledDate
+        document.getElementById("time").innerHTML = scheduledTime
+    </script>
+</html>

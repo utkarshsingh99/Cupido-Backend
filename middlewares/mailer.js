@@ -15,7 +15,7 @@ const mail = (to, from, meeting) => {
             <p>Hi!
             ${from.name} has invited you to a new meeting scheduled on ${meeting.date} at time ${meeting.time}. 
             Click on the following link to confirm your presence.</p>
-        <a href="http://localhost:5000/invite/${to.email.split(/@|.com/)[0] + "%20" + to.email.split(/@|.com/)[1]}/${from.id}/${meeting.timeStamp}">Confirm Meeting</a>`,
+        <a href="https://cupido-backend.herokuapp.com/invite/${to.email.split(/@|.com/)[0] + "%20" + to.email.split(/@|.com/)[1]}/${from.id}/${meeting.timeStamp}">Confirm Meeting</a>`,
     };
     sgMail.send(msg);
 }

@@ -28,15 +28,11 @@ const UserSchema = new Schema({
       },
       members: [
         {
-          email: String
-        }
-      ],
-      membersFinalized: [
-        {
-          email: String
+          email: String,
+          accepted: true
         }
       ]
-    }]
+  }]
 });
 
 module.exports = User = mongoose.model("users", UserSchema);

@@ -29,7 +29,7 @@ const UserSchema = new Schema({
       members: [
         {
           email: String,
-          accepted: true
+          accepted: Boolean
         }
       ]
   }]

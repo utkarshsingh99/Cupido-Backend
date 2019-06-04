@@ -9,6 +9,8 @@ const path = require('path')
 const users = require("./routes/api/users");
 const meetings = require("./routes/api/meetings");
 const User = require('./models/User')
+const Meeting = require('./models/Meetings')
+const acceptMail = require('./middlewares/acceptMailer')
 
 const app = express();
 
@@ -47,22 +49,22 @@ app.use("/api/users", users);
 app.use("/api/meetings", meetings);
 
 app.get('/invite/:to/:from/:meetingId', (req, res) => {
-  User.findById(req.params.from)
-    .then(user => {
-      let meeting = user.meetings.find(meeting => meeting.timeStamp === req.params.meetingId)
+  Meeting.findOne({timeStamp: req.params.meetingId})
+    .then(meeting => {
       console.log(meeting)
-      res.render('invite', {meeting, to: req.params.to, from: req.params.from})
+      res.render('invite', { meeting, to: req.params.to, from: req.params.from })
     })
 })
 
-app.get('/acceptinvite/:meetingId/:to', (req, res) => {
+app.get('/acceptinvite/:meetingTime/:to', (req, res) => {
   let to = req.params.to
   to = to.split(' ').join('@').concat('.com')
-  User.findOneAndUpdate({'meetings._id': req.params.meetingId}, {$push: {'meetings.$elem.membersFinalized': {email: to}}})
-    .then(user => {
-      console.log(user)
-      res.send(to)
-    }).catch(e => res.send(e)) 
+  Meeting.findOneAndUpdate({timeStamp: req.params.meetingTime}, {$push: {members: {email: to, accepted: true}}})
+    .then(meeting => {
+      meeting.members.map(member => {
+        acceptMail(to, member.email, {name: 'Accepted Invitation'}, meeting)
+      })
+    }) 
 })
 
 const port = process.env.PORT || 5000;

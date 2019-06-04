@@ -19,20 +19,11 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  meetings: [{
-      timeStamp: {
-        type: String
-      },
-      topic: {
-        type: String
-      },
-      members: [
-        {
-          email: String,
-          accepted: Boolean
-        }
-      ]
-  }]
+  meetings: [
+    {
+      meetingId: String
+    }
+  ]
 });
 
 module.exports = User = mongoose.model("users", UserSchema);

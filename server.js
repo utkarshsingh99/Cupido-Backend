@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const hbs = require('hbs');
 const cors = require('cors')
+const path = require('path')
 
 const users = require("./routes/api/users");
 const meetings = require("./routes/api/meetings");
@@ -19,7 +20,7 @@ app.use(
 );
 app.use(bodyParser.json());
 app.set('view engine', 'hbs');
-app.use(express.static('public'))
+app.use(express.static(path.join(__dirname, 'client/build')))
 
 // DB Config
 const db = require("./config/keys").mongoURI;

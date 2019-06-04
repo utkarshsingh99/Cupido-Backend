@@ -11,7 +11,7 @@ Thus, I would request the user to run the repo in their PCs as a development ser
 ### Solution
 - A very basic login system has been used. Middleware validation for every request is performed using jwt
 - SendGrid API is used for Email Management. 
-- The user sends the users to invite for a meeting. The server then sends a notification to everyone in the list.
+- The user sends the users to invite for a meeting. The server then sends a notification to everyone in the list (which somehow makes its way into the spam folder).
 - Two records are created for each such request: 
     - Meeting - a new meeting record consisting of the topic, time of the meeting, and members invited is created
     - User - a new entry for the user under meetings array is added consisting of the meetingId from the meetings collection.
